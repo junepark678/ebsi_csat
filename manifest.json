@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "EBSi CSAT Selector",
+    "version": "1.0",
+    "description": "A Firefox extension to allow users to create custom test pages for EBSi easier",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "webRequest",
+        "webRequestBlocking",
+        "cookies",
+        "*://*.ebs.co.kr/*",
+        "*://*.ebsi.co.kr/*",
+        "*://ai-plus.ebs.co.kr/*"
+    ],
+    "sidebar_action": {
+        "default_title": "EBSi CSAT Selector",
+        "default_panel": "sidebar.html"
+    },
+    "content_security_policy": "script-src 'self'; object-src 'self'"
+}

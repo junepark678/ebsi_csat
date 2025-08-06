@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBSi CSAT</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fafbfc;
+        }
+
+        input[type="number"]:focus, input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            background-color: white;
+        }
+
+        button, input[type="submit"] {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        button:hover, input[type="submit"]:hover {
+            background: linear-gradient(135deg, #2980b9, #21618c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        button:active, input[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        #reset-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+
+        #reset-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+        }
+
+        #clear-problems-btn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            margin-bottom: 15px;
+        }
+
+        #clear-problems-btn:hover {
+            background: linear-gradient(135deg, #e67e22, #d35400);
+        }
+
+        #generate-btn {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            font-size: 18px;
+            padding: 15px 30px;
+            display: block;
+            margin: 20px auto;
+            max-width: 200px;
+        }
+
+        #generate-btn:hover {
+            background: linear-gradient(135deg, #229954, #1e8449);
+        }
+
+        #problem-list-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #problem-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        #problem-list li {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        #problem-list li:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        #problem-list li span {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        #problem-list li button {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            padding: 8px 16px;
+            font-size: 14px;
+            margin: 0;
+            border-radius: 6px;
+        }
+
+        #problem-list li button:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-1px);
+        }
+
+        #title {
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            form, #problem-list-container {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button, input[type="submit"] {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>EBSi CSAT 문제 생성기</h1>
+
+        <form id="problem-form">
+            <div class="form-group">
+                <h2>연도 선택</h2>
+                <input type="number" name="year" id="year" min="2008" max="2025" placeholder="연도 (2008-2025)">
+            </div>
+            
+            <div class="form-group">
+                <h2>학년 선택</h2>
+                <select name="grade">
+                    <option value="1">1학년</option>
+                    <option value="2">2학년</option>
+                    <option value="3">3학년</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <h2>과목 선택</h2>
+                <select name="subject">
+                    <option value="1">국어</option>
+                    <option value="2">수학</option>
+                    <option value="3">영어</option>
+                    <option value="4">한국사</option>
+                    <option value="5">사회탐구</option>
+                    <option value="6">과학탐구</option>
+                    <option value="7">직업탐구</option>
+                    <option value="8">제2외국어/한문</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <h2>월 선택</h2>
+                <input type="number" name="month" id="month" min="1" max="12" placeholder="월 (1-12)">
+            </div>
+            
+            <div class="form-group">
+                <h2>문제 번호 입력</h2>
+                <input type="text" id="problem-ids" placeholder="문제 번호를 쉼표로 구분하여 입력하세요 (예: 1,2,3)" min="1" max="45">
+            </div>
+            
+            <div class="button-group">
+                <input type="submit" value="문제 검색">
+                <button type="button" id="reset-btn">전체 초기화</button>
+            </div>
+        </form>
+
+        <div id="problem-list-container">
+            <h2>현재 선택 문제 목록</h2>
+            <button type="button" id="clear-problems-btn">문제 목록 지우기</button>
+            <ul id="problem-list">
+            </ul>
+        </div>
+
+        <input type="text" name="title" id="title" placeholder="시험지 제목을 입력하세요">
+
+        <button id="generate-btn">시험지 생성</button>
+    </div>
+
+    <script src="sidebar.js"></script>
+
+</body>
+
+</html>
